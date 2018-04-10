@@ -1,3 +1,6 @@
+#developer: dulaj sanjaya
+#python 3.4
+
 import numpy as np
 
 def loadData():
@@ -27,7 +30,7 @@ def PA(X,label,C,t):
             xt=xt.astype(float)
           
             
-            y_dash= np.dot(w,xt)
+            y_dash= np.sign(np.dot(w,xt))
             yy_dash=float(label[q])*y_dash
 
             loss=max([0,1-yy_dash])
@@ -48,12 +51,26 @@ if __name__ == '__main__':
     X=data[:,:9]
     n=int(len(X)*(2/3))
 
-    trainX=X[:n,:]
-    testX=X[n:,:]
+    trainX=X[:n,:] #data for the training
+    testX=X[n:,:] ##unseen data for testing
 
-    TY=Y[:n]
+    TY=Y[:n] #target value for building the w
+    testY=Y[n:] #target values for testing
 
     W=PA(trainX,TY,C,1)
+    #updated w matrix
+
+    testinglabeld=[]
+    ##label for unseen data
+
+    for x in testX:
+        testinglabeld.append(np.sign(np.dot(W,x.astype(float))))
+    testinglabeld=[int(i) for i in testinglabeld]
+    testY=[int(i) for i in testY]
+
+   
+
+    
     
     
 
