@@ -13,8 +13,32 @@ def loadData():
                  
     return dt
 
+def method1(loss,c,x_square):
+    return loss/x_square
 
-    
+def PA(X,label,C,t):
+    n=len(X[0,:])
+    w=np.zeros(n)
+
+    for i in range(t):
+        q=0
+        for xt in X:
+            w=w.astype(float)
+            xt=xt.astype(float)
+          
+            
+            y_dash= np.dot(w,xt)
+            yy_dash=float(label[q])*y_dash
+
+            loss=max([0,1-yy_dash])
+            x_square=np.sum(xt)
+
+            tor=method1(loss,C,x_square)
+            w=w+float(label[q])*tor*xt
+            
+            q=q+1
+
+    return w
     
 
 if __name__ == '__main__':
@@ -28,6 +52,9 @@ if __name__ == '__main__':
     testX=X[n:,:]
 
     TY=Y[:n]
+
+    W=PA(trainX,TY,C,1)
+    
     
 
  
