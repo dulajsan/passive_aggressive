@@ -18,9 +18,17 @@ def loadData():
                  
     return dt
 
+#pa
 def method1(loss,c,x_square):
     return loss/x_square
 
+#pa1
+def method2(loss,c,x_square):
+    return min([c,loss/x_square])
+
+#pa2
+def method3(loss,c,x_square):
+    return loss/(x_square+1/(2*c))
 
 def PA(X,label,C,t):
     n=len(X[0,:])
@@ -41,7 +49,7 @@ def PA(X,label,C,t):
             loss=max([0,1-yy_dash])
             x_square=(np.power(np.linalg.norm(xt, ord=2), 2))
 
-            tor=method1(loss,C,x_square)
+            tor=method3(loss,C,x_square)
             xt=[float(i) for i in xt]
             s=tor*label[q]
             temp=[x*s for x in xt]
